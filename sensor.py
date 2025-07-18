@@ -22,7 +22,8 @@ try:
     )
     cursor = conn.cursor()
 except Exception as e:
-    pass
+    print("Error al conectar a la base de datos:", e)
+    exit(1)
 
 # Bucle principal
 while True:
@@ -42,8 +43,14 @@ while True:
         cursor.execute(query, (temp, hum))
         conn.commit()
 
-    except:
-        pass
+    except (IOError, TypeError) as e:
+        print("Error:", str(e))
+        setText("")
+
+    except KeyboardInterrupt:
+        print("Programa interrumpido por el usuario.")
+        setText("")
+        break
 
     sleep(2)
 
