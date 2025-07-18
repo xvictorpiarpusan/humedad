@@ -43,8 +43,14 @@ while True:
         cursor.execute(query, (temp, hum))
         conn.commit()
 
-    except:
-        pass
+    except (IOError, TypeError) as e:
+        print("Error:", str(e))
+        setText("")
+
+    except KeyboardInterrupt:
+        print("Programa interrumpido por el usuario.")
+        setText("")
+        break
 
     sleep(2)
 
